@@ -1,9 +1,9 @@
-import express from 'express'
+import 'dotenv/config';
+import app from './src/app.js';
 
-const routes = (app) => {
-    app.route("/").get((req,res) => res.status(200).json({message: "API rodando"}));
-    
-    app.use(express.json(), curso);
-}
+const porta = process.env.PORTA;
 
-export default routes;
+app.listen(porta, () => console.log(`API funcionando!\nServidor rodando em: http://localhost:${porta}`));
+
+
+
