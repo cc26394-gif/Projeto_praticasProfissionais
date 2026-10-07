@@ -27,7 +27,7 @@ class Status {
                 row => new Status(row.codigo, row.status,)
             );
         }
-        catch (erro) {
+        catch (error) {
             throw new Error(`Erro na consulta ao banco de dados: ${error.message}`);
         }
     }
@@ -39,8 +39,33 @@ class Status {
             return result
 
         } catch (error) {
-            
              throw new Error(`Erro na remoção no banco de dados: ${error.message}`);
+        }
+    }
+
+    static async inserirStatus(status_reserva){
+        const status=status_reserva.status
+        try {
+            const conexao = await conectaBD();
+            const result = await conexao.query(`INSERT into status_reserva (status)VALUES ('${status}')`)
+            return result
+        } catch (error) {
+
+            throw new Error(`Erro na inserção no banco de dados: ${error.message}`);
+        }
+    }
+
+    static async alterarStatus(status_reserva){
+        const {codigo, status}=status_reserva
+        console.log(status_reserva)
+
+        try{
+            const conexao = await conectaBD()
+            const result = await conexao.query(`UPDATE status_reserva SET status='${status}' WHERE codigo=${codigo}`)
+            return result
+
+        }catch(error){
+            throw new Error(`Erro na alteração no banco de dados: ${error.message}`);
         }
     }
 }
