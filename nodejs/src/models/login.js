@@ -1,4 +1,4 @@
-import conectaBD from "../config/dbConnect";
+import conectaBD from "../config/dbConnect.js";
 
 class Login{
     constructor(id,usuario_id,login,senha,data_login){
@@ -15,20 +15,20 @@ class Login{
             const result =await conexao.query("SELECT * from login_no_sistema ")
 
             return result.recordset.map(
-                row => new Login(row.id, row.usuario_id, row.login, row.senha,row.data_login)
+                row => new Login(row.id, row.usuario_id, row.login, row.senha, row.data_login)
             )
         }
         catch(error){
             throw new Error(`Erro na cosulta ao banco de dados:${error.message}`)
         }
     }
-    static async buscarPorid(id){
+    static async buscarPorId(id){
         try{
             const conexao = await conectaBD()
             const result = await conexao.query(`SELECT * from  login_no_sistema WHERE id=${id}`)
             
             return result.recordset.map(
-                row => new Login(row.id,row.usuario_id,row.login,row.data_login)      
+                row => new Login(row.id,row.usuario_id,row.login,row.senha, row.data_login)      
             ) 
         }
         catch(error){

@@ -17,7 +17,7 @@ class Status {
         }
     }
 
-    static async buscaPorCodigo(codigo){
+    static async buscarPorId(codigo){
         try {
             const conexao = await conectaBD();
             const result = await conexao.query(`SELECT * from status_reserva WHERE codigo=${codigo}`);
